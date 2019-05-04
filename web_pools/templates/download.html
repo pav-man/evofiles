@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+{%include "include_header.html" %}
+</head>
+<body>
+<div class="header">
+{% include "include_header_menu.html" %}
+</div>
+<div class="content">
+    <div class="container">
+         <ul class="items">
+             <li><strong>Filename</strong></li>
+            <li class="size"><strong>Size</strong></li>
+            <li><strong>Expires in</strong></li>
+            <li class="link"><strong>Download</strong></li>
+        </ul>
+        <ul class="items">
+            <li><span>{{filename}}</span></li>
+            <li class="size"><span>{{size}}</span></li>
+            <li><span>{{expiry}}</span></li>
+            <li class="link"><span><a href="{{download_link}}"><strong>DOWNLOAD FILE</strong></a></span></li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>
+
+

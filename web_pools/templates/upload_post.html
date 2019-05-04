@@ -1,0 +1,28 @@
+        <form class="upload" action="/" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+            <div>
+            <label for="file">File Upload to 20mb:</label>
+            <input id="file" name="file" type="file" value="">
+            </div>
+            <div>
+            <label for="expiry">Expires in seconds:</label>
+            <input id="expiry" name="expiry" type="text">
+            </div>
+            <div>
+            <input id="button" type="submit" value="Upload">
+            </div>
+        </form>
+        {% if filename %}
+         <ul class="items">
+             <li><strong>Filename</strong></li>
+            <li class="size"><strong>Size</strong></li>
+            <li><strong>Expires in</strong></li>
+            <li class="link"><strong>Download</strong></li>
+        </ul>
+        <ul class="items">
+            <li><span>{{filename}}</span></li>
+            <li class="size"><span>{{size}}</span></li>
+            <li><span>{{ expiry }}s</span></li>
+            <li class="link"><span><a href="{{url}}">{{url}}</a></span></li>
+        </ul>
+        {% endif %}
+       {% if error %}<div class="error">{{ error }}</div>{% endif %}

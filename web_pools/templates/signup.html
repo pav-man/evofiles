@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up {{title}}</title>
+{%include "include_header.html" %}
+</head>
+<body>
+<div class="header">
+{% include "include_header_menu.html" %}
+</div>
+
+<div class="content">
+    <div class="container">
+{% if error %}<div class="error"><strong>Error:</strong> {{ error }}</div>{% endif %}
+{% if result %}<div class="result"><strong>{{ result }}</strong></div>{% else %}
+        <form class="signup" method="post" action="/signup/" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" target="_self">
+            <div>
+            <label for="login">Login:</label>
+            <input id="login" name="login" type="text">
+            </div>
+            <div>
+            <label for="password">Password:</label>
+            <input id="password" name="password" type="password">
+            </div>
+            <div>
+            <input id="button" type="submit" value="Signup">
+            </div>
+        </form>
+{% endif %}
+    </div>
+</div>
+</body>
+</html>
+
+

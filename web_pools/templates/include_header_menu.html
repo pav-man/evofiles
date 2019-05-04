@@ -1,0 +1,16 @@
+<div>
+    <div class="container">
+    <ul class="site-nav">
+        <li><a href="/" title="Home">Home</a></li>
+        <li><a href="/search/" title="Search">Search</a></li>
+        {% if current_user.is_anonymous %}
+            <li><a href="/login/" title="Login">Login</a></li>
+            <li><a href="/signup/" title="Sign Up">Sign Up</a></li>
+        {% else %}
+            <li><span>User: {{ current_user.userid }}</span></li>
+            <li><a href="/my_files/" title="My Files">My Files</a></li>
+            <li><a href="/logout/" title="Logout">Logout</a></li>
+        {% endif %}
+    </ul>
+    </div>
+</div>

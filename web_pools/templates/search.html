@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+{%include "include_header.html" %}
+</head>
+<body>
+<div class="header">
+{% include "include_header_menu.html" %}
+</div>
+<div class="content">
+    <div id="container">
+        <div class="search">
+            <form method="post" action="/search/" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" target="_self">
+            <input id="filename" name="filename" type="search" autocomplete="off" placeholder="Enter file name...">
+            <input id="button" type="submit" value="Go">
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="container">
+        {% if rows%}
+         <ul class="items">
+             <li><strong>Filename</strong></li>
+            <li class="size"><strong>Size</strong></li>
+            <li><strong>Expires in</strong></li>
+            <li class="link"><strong>Download</strong></li>
+        </ul>
+        {% for i in rows %}
+        <ul class="items">
+            <li><span>{{filename}}</span></li>
+            <li class="size"><span>{{i[1]}}</span></li>
+            <li><span>{{i[0]}}</span></li>
+            <li class="link"><span><a href="{{i[2]}}">{{i[2]}}</a></span></li>
+        </ul>
+        {% endfor %}
+        {% else %}
+        {% if not rows and filename%}
+        <ul class="items">
+            <li><span>Search: '{{filename}}'</span></li>
+            <li class="error"><span>files not found</span></li>
+        </ul>
+        {% endif %}
+        {% endif %}
+    </div>
+</div>
+</body>
+</html>
+
+
