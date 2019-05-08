@@ -1,6 +1,7 @@
 import os
 import time
 import aiohttp_jinja2
+import aiofiles
 from aiohttp import web
 from aiohttp_security import authorized_userid
 from urllib.parse import urlunparse
@@ -23,7 +24,7 @@ async def upload(request):
     hash_dir = await utils.hash_path(str(time.time()))
     if not os.path.exists(os.path.join(config.project_files, hash_dir)):
         os.makedirs(os.path.join(config.project_files, hash_dir))
-    with open(os.path.join(config.project_files, hash_dir, filename), 'wb') as f:
+    async with aiofiles.open(os.path.join(config.project_files, hash_dir, filename), 'wb') as f:
         while True:
             chunk = await field.read_chunk()
             if not chunk:
