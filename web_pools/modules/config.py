@@ -20,7 +20,7 @@ path_level = 3
 project_files = check_path(project_root,"files")
 project_tmp = check_path(project_root,"tmp")
 default_expiry = 100
-
+max_expiry = 2505600 #sec
 
 # DATABASE
 db = os.path.join(project_root, "web_pools", "db", "fhost.db")

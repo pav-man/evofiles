@@ -36,6 +36,8 @@ async def upload(request):
     expiry = await field.text()
     if not expiry:
         expiry = config.default_expiry
+    elif int(expiry) > config.max_expiry:
+        expiry = config.max_expiry
     file_id = await db.insert_file(db_conn, filename, size, hash_dir, expiry)
     url = urlunparse((scheme,config.project_domain, f'/{hash_dir}','','',''))
     if username:

@@ -16,13 +16,14 @@ async def get_time(sec):
         sec = 2147483647
     sec = timedelta(seconds=int(sec))
     d = datetime(1,1,1) + sec
+
     return "%d days %02d hours %02d min %02d sec" % (d.day-1, d.hour, d.minute, d.second)
 
 async def get_size(size):
     size = int(size)
     power = 2 ** 10
     n = 0
-    sufix = {0: '', 1: 'KB', 2: 'MB', 3: 'GB', 4: 'TB'}
+    sufix = {0: 'B', 1: 'KB', 2: 'MB', 3: 'GB', 4: 'TB'}
     while size > power:
         size /= power
         n += 1

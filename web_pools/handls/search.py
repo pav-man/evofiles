@@ -24,7 +24,7 @@ async def file(request):
             expiry = await utils.get_time(expiry)
             size =  await utils.get_size(size)
             download_link = parse.urlunparse((scheme, config.project_domain, f'/{path}', '', '', ''))
-            rows.append((expiry, size, download_link))
+            rows.append((expiry, size, download_link, name))
     return dict(title=config.project_name, filename=filename, rows=rows)
 
 

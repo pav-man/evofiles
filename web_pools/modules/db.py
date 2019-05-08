@@ -51,7 +51,7 @@ async def select_file(db_conn, path):
 
 
 async def select_files(db_conn, filename):
-    q = f"SELECT id, name, size, path, expiry_dt -  strftime('%s','now'), datetime(insert_dt,'unixepoch') FROM files WHERE name = '{filename}' AND expiry_dt > strftime('%s','now')"
+    q = f"SELECT id, name, size, path, expiry_dt -  strftime('%s','now'), datetime(insert_dt,'unixepoch') FROM files WHERE name LIKE '%{filename}%' AND expiry_dt > strftime('%s','now')"
     cursor = await db_conn.execute(q)
     rows = await cursor.fetchall()
     return rows
