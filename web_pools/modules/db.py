@@ -7,7 +7,7 @@ logs = logging.getLogger("aioserver")
 
 
 async def init_db(app):
-    db_conn = await aiosqlite.connect(app['config'].db)
+    db_conn = await aiosqlite.connect(app['config'].db, timeout=10)
     await db_conn.execute("PRAGMA foreign_keys = 1")
     await create_tables(db_conn)
     app['db_conn'] = db_conn
