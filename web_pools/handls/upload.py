@@ -13,6 +13,9 @@ async def upload(request):
     db_conn = request.app['db_conn']
     config = request.app["config"]
     scheme = request.headers.get("X-Forwarded-Proto", request.scheme)
+    content_length = request.headers.get("Content-Length", 0)
+    if int(content_length) > config.max_file_size:
+        return dict(error='max file size')
     username = await authorized_userid(request)
     reader = await request.multipart()
     field = await reader.next()
@@ -35,10 +38,9 @@ async def upload(request):
     field = await reader.next()
     assert field.name == 'expiry'
     expiry = await field.text()
-    if not expiry:
+    error = await validate_expiry(config, expiry)
+    if error:
         expiry = config.default_expiry
-    elif int(expiry) > config.max_expiry:
-        expiry = config.max_expiry
     file_id = await db.insert_file(db_conn, filename, size, hash_dir, expiry)
     url = urlunparse((scheme,config.project_domain, f'/{hash_dir}','','',''))
     if username:
@@ -46,3 +48,10 @@ async def upload(request):
     return dict(filename=filename, size=size, expiry=expiry, url=url)
 
 
+async def validate_expiry(config, expiry):
+    if not expiry:
+        return 'Not set expiry time'
+    elif not expiry.isdigit():
+        return 'Not digit'
+    elif int(expiry) > config.max_expiry:
+        return 'expiry time not correct'
