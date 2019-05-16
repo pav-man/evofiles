@@ -13,9 +13,6 @@ async def upload(request):
     db_conn = request.app['db_conn']
     config = request.app["config"]
     scheme = request.headers.get("X-Forwarded-Proto", request.scheme)
-    content_length = request.headers.get("Content-Length", 0)
-    if int(content_length) > config.max_file_size:
-        return dict(error='max file size')
     username = await authorized_userid(request)
     reader = await request.multipart()
     field = await reader.next()
@@ -33,7 +30,8 @@ async def upload(request):
             if not chunk:
                 break
             size += len(chunk)
-            f.write(chunk)
+            await f.write(chunk)
+        await f.flush()
 
     field = await reader.next()
     assert field.name == 'expiry'
