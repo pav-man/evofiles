@@ -61,11 +61,10 @@ def main(path):
     web.run_app(app, path=path)
 
 if __name__ == '__main__':
-    #sypervisor start num process
+    # sypervisor start num process
     parser = argparse.ArgumentParser(description="evofiles aioserver")
     parser.add_argument('--path')
     args = parser.parse_args()
     path = args.path
     # path = "/tmp/evo_files_0.sock"
     main(path=path)
-
